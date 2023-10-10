@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements MessageListView, 
             if (presenterAuth.getCurUser()) {
                 presenterAuth.signOut();
           //  } else if (presenterGoogleAuth.getCurUser()) {
-       //         presenterGoogleAuth.signOut(this);
+                presenterGoogleAuth.signOut(this);
             }
             getOut();
          //  signOut();
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements MessageListView, 
 
     public void regGoogle() {
         Toast.makeText(this,"Выбрана регистрация Гугл", Toast.LENGTH_SHORT).show();
-       // presenterGoogleAuth.signIn();
+        presenterGoogleAuth.signIn();
     }
 
     @Override
