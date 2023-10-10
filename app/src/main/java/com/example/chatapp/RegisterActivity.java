@@ -70,9 +70,10 @@ public class RegisterActivity extends AppCompatActivity implements Authorization
     }
 
 
-    public void showActivity(boolean res) {
+    public void showActivity(boolean res,String user_name) {
         if (res) {
             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+            intent.putExtra("author",user_name);
             startActivity(intent);
         } else {
             Toast.makeText(RegisterActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();

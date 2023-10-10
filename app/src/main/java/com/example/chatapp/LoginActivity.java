@@ -73,9 +73,10 @@ public class LoginActivity extends AppCompatActivity implements Authorizations{
 
     }
 
-    public void showActivity(boolean res) {
+    public void showActivity(boolean res, String user_name) {
         if (res) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("author",user_name);
             startActivity(intent);
         } else {
             Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();

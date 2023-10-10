@@ -72,15 +72,19 @@ public class MainActivity extends AppCompatActivity implements MessageListView, 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.item_sign_out) {
           //  mAuth.signOut();
-            if (presenterAuth.getCurUser()) {
-                presenterAuth.signOut();
-          //  } else if (presenterGoogleAuth.getCurUser()) {
-                presenterGoogleAuth.signOut(this);
-            }
-            getOut();
+            authSignOut();
          //  signOut();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void authSignOut(){
+        if (presenterAuth.getCurUser()) {
+            presenterAuth.signOut();
+            //  } else if (presenterGoogleAuth.getCurUser()) {
+            presenterGoogleAuth.signOut(this);
+        }
+        getOut();
     }
 
     @Override
@@ -98,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements MessageListView, 
                 new ActivityResultCallback<FirebaseAuthUIAuthenticationResult>() {
                     @Override
                     public void onActivityResult(FirebaseAuthUIAuthenticationResult result) {
-                        Toast.makeText(MainActivity.this,"bebebe", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "bebebe", Toast.LENGTH_SHORT).show();
                         presenterGoogleAuth.onSignInResult(result);
                     }
                 }
@@ -123,20 +127,24 @@ public class MainActivity extends AppCompatActivity implements MessageListView, 
             }
         });
 
-        if (presenterAuth.getCurUser()) {
-            Toast.makeText(this, "Logged", Toast.LENGTH_SHORT).show();
-        } else {
-            Bundle extras=getIntent().getExtras();
-            if (extras != null) {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            if (presenterAuth.getCurUser()) {
+                if (!extras.getString("author").isEmpty()) {
+                    author = extras.getString("author");
+                }
+                Toast.makeText(this, "Logged:" + author, Toast.LENGTH_SHORT).show();
+            } else {
                 if (extras.getBoolean("regGoogle")) {
                     regGoogle();
                     return;
                 }
             }
-            getOut();
+        } else {
+            authSignOut();
         }
-    }
 
+    }
     private void prepMessToSend() {
         String mess = editTextMess.getText().toString().trim();
         long date = System.currentTimeMillis();
@@ -169,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements MessageListView, 
 
 
     @Override
-    public void showActivity(boolean res) {
+    public void showActivity(boolean res,String user_name) {
        // Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         //startActivity(intent);
     }

@@ -35,18 +35,20 @@ public class PresenterAuth {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         boolean res;
+                        String user_name= null;
                         if (task.isSuccessful()) {
                             Log.d("MyBase", "createUserWithEmail:success");
-                            //FirebaseUser user = mAuth.getCurrentUser();
+                            FirebaseUser user = mAuth.getCurrentUser();
                             //Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                             //startActivity(intent);
+                            user_name = user.getEmail();
                             res = true;
                         } else {
                             Log.w("MyBase", "createUserWithEmail:failure", task.getException());
                          //  Toast.makeText(RegisterActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                             res = false;
                         }
-                        view.showActivity(res);
+                        view.showActivity(res,user_name);
                     }
                 });
     }
@@ -57,18 +59,20 @@ public class PresenterAuth {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         boolean res;
+                        String user_name = null;
                         if (task.isSuccessful()) {
                             Log.d("MyBase", "signInWithEmail:success");
-                            //FirebaseUser user = mAuth.getCurrentUser();
+                            FirebaseUser user = mAuth.getCurrentUser();
                             //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             //startActivity(intent);
+                            user_name = user.getEmail();
                             res = true;
                         } else {
                             Log.w("MyBase", "signInWithEmail:failure", task.getException());
                            // Toast.makeText(view.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                             res = false;
                         }
-                          view.showActivity(res);
+                          view.showActivity(res,user_name);
                     }
                 });
     }
